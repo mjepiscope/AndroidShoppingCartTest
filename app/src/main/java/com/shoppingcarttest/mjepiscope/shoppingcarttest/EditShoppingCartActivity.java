@@ -22,6 +22,7 @@ import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.Item;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShippingDetails;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCart;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartResponse;
+import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartUpdateRequest;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.services.ShoppingCartService;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.utils.ICartItemDialog;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.utils.IListViewUpdate;
@@ -53,6 +54,7 @@ public class EditShoppingCartActivity extends BaseShoppingCartCreateUpdateActivi
 
         Intent intent = getIntent();
         id = intent.getIntExtra(PARAM_ID, -1);
+        deletedItems = new ArrayList();
 
         initControls();
 
@@ -111,9 +113,11 @@ public class EditShoppingCartActivity extends BaseShoppingCartCreateUpdateActivi
             }
         };
 
-        Item[] deletedItemArray = deletedItems.toArray(new Item[deletedItems.size()]);
+        ShoppingCartUpdateRequest request = new ShoppingCartUpdateRequest();
+        request.setShoppingCart(this.shoppingCart);
+        request.setDeletedItems(deletedItems.toArray(new Item[deletedItems.size()]));
 
-        service.editShoppingCartAsync(shoppingCart, deletedItemArray, callback);
+        service.editShoppingCartAsync(request, callback);
     }
 
     @Override

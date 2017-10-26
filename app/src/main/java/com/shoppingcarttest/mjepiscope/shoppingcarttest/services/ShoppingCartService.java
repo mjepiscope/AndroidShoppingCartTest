@@ -3,6 +3,7 @@ package com.shoppingcarttest.mjepiscope.shoppingcarttest.services;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.Item;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCart;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartResponse;
+import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartUpdateRequest;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartsResponse;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.rest.IShoppingCartService;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.rest.ServiceFactory;
@@ -39,7 +40,7 @@ public class ShoppingCartService {
         service.createShoppingCart(shoppingCart).enqueue(callback);
     }
 
-    public void editShoppingCartAsync(ShoppingCart shoppingCart, Item[] deletedItems, Callback<Boolean> callback) {
-        service.editShoppingCart(shoppingCart, deletedItems).enqueue(callback);
+    public void editShoppingCartAsync(ShoppingCartUpdateRequest request, Callback<Boolean> callback) {
+        service.editShoppingCart(request).enqueue(callback);
     }
 }

@@ -3,6 +3,7 @@ package com.shoppingcarttest.mjepiscope.shoppingcarttest.rest;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.Item;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCart;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartResponse;
+import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartUpdateRequest;
 import com.shoppingcarttest.mjepiscope.shoppingcarttest.models.ShoppingCartsResponse;
 
 import retrofit2.Call;
@@ -32,5 +33,5 @@ public interface IShoppingCartService {
     Call<ShoppingCartResponse> getShoppingCartAsync(@Path("id") int id);
 
     @POST("ShoppingCart/Edit")
-    Call<Boolean> editShoppingCart(@Body ShoppingCart shoppingCart, @Body Item[] deletedItems);
+    Call<Boolean> editShoppingCart(@Body ShoppingCartUpdateRequest request);
 }
