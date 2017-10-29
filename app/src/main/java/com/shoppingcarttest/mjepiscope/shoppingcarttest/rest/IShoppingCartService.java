@@ -34,4 +34,7 @@ public interface IShoppingCartService {
 
     @POST("ShoppingCart/Edit")
     Call<Boolean> editShoppingCart(@Body ShoppingCartUpdateRequest request);
+
+    @POST("ShoppingCart/Delete")
+    Call<Boolean> deleteShoppingCart(@Body int id);
 }

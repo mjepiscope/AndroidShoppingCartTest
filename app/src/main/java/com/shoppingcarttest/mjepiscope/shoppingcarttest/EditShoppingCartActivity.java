@@ -58,6 +58,15 @@ public class EditShoppingCartActivity extends BaseShoppingCartCreateUpdateActivi
 
         initControls();
 
+        btnDeleteCart.setVisibility(View.VISIBLE);
+        btnDeleteCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                btnDeleteCart_Click(v);
+            }
+        });
+
         Callback<ShoppingCartResponse> callback = new Callback<ShoppingCartResponse>() {
             @Override
             public void onResponse(Call<ShoppingCartResponse> call, Response<ShoppingCartResponse> response) {
@@ -102,7 +111,14 @@ public class EditShoppingCartActivity extends BaseShoppingCartCreateUpdateActivi
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 progressBar.setVisibility(View.INVISIBLE);
-                startActivity(new Intent(EditShoppingCartActivity.this, ShoppingCartActivity.class));
+
+                if (response.body()) {
+                    startActivity(new Intent(EditShoppingCartActivity.this, ShoppingCartActivity.class));
+                }
+                else {
+                    Snackbar.make(v, "An error has occurred.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
 
             @Override
@@ -118,6 +134,34 @@ public class EditShoppingCartActivity extends BaseShoppingCartCreateUpdateActivi
         request.setDeletedItems(deletedItems.toArray(new Item[deletedItems.size()]));
 
         service.editShoppingCartAsync(request, callback);
+    }
+
+    protected void btnDeleteCart_Click(View view) {
+        final View v = view;
+
+        Callback<Boolean> callback = new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                progressBar.setVisibility(View.INVISIBLE);
+
+                if (response.body()) {
+                    startActivity(new Intent(EditShoppingCartActivity.this, ShoppingCartActivity.class));
+                }
+                else {
+                    Snackbar.make(v, "An error has occurred.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Snackbar.make(v, t.getMessage(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        };
+
+        service.deleteShoppingCartAsync(id, callback);
     }
 
     @Override

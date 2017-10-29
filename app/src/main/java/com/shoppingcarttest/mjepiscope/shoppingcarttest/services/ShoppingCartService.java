@@ -43,4 +43,8 @@ public class ShoppingCartService {
     public void editShoppingCartAsync(ShoppingCartUpdateRequest request, Callback<Boolean> callback) {
         service.editShoppingCart(request).enqueue(callback);
     }
+
+    public void deleteShoppingCartAsync(int id, Callback<Boolean> callback) {
+        service.deleteShoppingCart(id).enqueue(callback);
+    }
 }

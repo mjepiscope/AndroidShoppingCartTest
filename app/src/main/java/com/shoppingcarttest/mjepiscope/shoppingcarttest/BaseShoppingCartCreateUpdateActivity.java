@@ -38,7 +38,7 @@ public class BaseShoppingCartCreateUpdateActivity extends AppCompatActivity
     protected View lvHeader;
     protected ItemAdapter adapter;
     protected List<Item> items;
-    protected Button btnCancelCart, btnSaveCart;
+    protected Button btnCancelCart, btnDeleteCart, btnSaveCart;
 
     final ShoppingCartService service;
 
@@ -69,6 +69,7 @@ public class BaseShoppingCartCreateUpdateActivity extends AppCompatActivity
             }
         });
 
+        btnDeleteCart = (Button) findViewById(R.id.btnDeleteCart);
         btnCancelCart = (Button) findViewById(R.id.btnCancelCart);
         btnCancelCart.setOnClickListener(new View.OnClickListener() {
             @Override

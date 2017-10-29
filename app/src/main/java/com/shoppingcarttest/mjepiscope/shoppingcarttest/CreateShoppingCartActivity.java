@@ -47,6 +47,8 @@ public class CreateShoppingCartActivity extends BaseShoppingCartCreateUpdateActi
 
         initControls();
 
+        btnDeleteCart.setVisibility(View.INVISIBLE);
+
         items = new ArrayList<>();
         adapter = new ItemAdapter(this, items);
         lvItems = (ListView) findViewById(R.id.lvItems);
@@ -67,7 +69,14 @@ public class CreateShoppingCartActivity extends BaseShoppingCartCreateUpdateActi
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 progressBar.setVisibility(View.INVISIBLE);
-                startActivity(new Intent(CreateShoppingCartActivity.this, ShoppingCartActivity.class));
+
+                if (response.body()) {
+                    startActivity(new Intent(CreateShoppingCartActivity.this, ShoppingCartActivity.class));
+                }
+                else {
+                    Snackbar.make(v, "An error has occurred.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
 
             @Override
